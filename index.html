@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>CSCI571 HW8</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <!-- Form -->
+    <div class="container" id="Search">
+        <div class="row inline-block">
+            <div class="col-md-12">
+                <img class="img-responsive col-md-2" width="40%" src="./ebay.jpg">
+                <h2 class="col-md-2">shopping</h2>
+            </div>
+        </div>
+        <!-- Form -->
+        <form id="ebaysearch" class="form-horizontal">
+            <!-- Key word -->
+            <div class="form-group">
+                <label for="keyword" class="col-md-2 control-label">Key words:</label>
+
+                <div class="col-md-10 errordisplay">
+                    <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Enter keyword">
+                </div>
+            </div>
+            <!-- Price range -->
+            <div class="form-group">
+                <label for="price" class="col-md-2 control-label">Price range:</label>
+                <div class="col-md-5 errordisplay">
+                    <input type="text" class="form-control" id="minprice" name="minprice" placeholder="from ($)">
+                </div>
+                <div class="col-md-5 errordisplay">
+                    <input type="text" class="form-control" id="maxprice" name="maxprice" placeholder="to ($)">
+                </div>
+            </div>
+
+            <!-- Condition -->
+            <div class="form-group">
+                <label for="condition" class="col-md-2 control-label">Conditions:</label>
+                <div class="col-md-10">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="condition[]" value="1000"> New
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="condition[]" value="3000"> Used
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="condition[]" value="4000"> Very Good
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="condition[]" value="5000"> Good
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="condition[]" value="6000"> Acceptable
+                    </label>
+                </div>
+            </div>
+
+
+            <!-- Buying formats -->
+            <div class="form-group">
+                <label for="buyingformat" class="col-md-2 control-label">Buying formats:</label>
+                <div class="col-md-10">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="ListingType[]" value="FixedPrice"> Buy It Now
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="ListingType[]" value="Auction"> Auction
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="ListingType[]" value="Classified"> Classified Ads
+                    </label>
+                </div>
+            </div>
+            <!-- Seller -->
+            <div class="form-group">
+                <label for="seller" class="col-md-2 control-label">Seller:</label>
+                <div class="col-md-10">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="ReturnsAcceptedOnly"> Retuen accepted
+                    </label>
+                </div>
+            </div>
+
+            <!-- Shipping -->
+            <div class="form-group">
+                <label for="shipping" class="col-md-2 control-label">Shipping:</label>
+                <div class="col-md-10">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="FreeShippingOnly"> Free Shipping
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="ExpeditedShippingType"> Expedited shipping
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-10 col-md-offset-2 errordisplay">
+                    <input type="text" class="form-control" name="MaxHandlingTime" placeholder="Max handling time(days)" id="MaxHandlingTime">
+                </div>
+            </div>
+
+            <!-- Sort by -->
+            <div class="form-group">
+                <label for="sort" class="col-md-2 control-label">Sort By:</label>
+                <div class="col-md-10">
+                    <select class="form-control" name="sort">
+                        <option value="BestMatch" selected="selected">Best Match</option>
+                        <option value="CurrentPriceHighest">Price: highest first</option>
+                        <option value="PricePlusShippingHighest">Price + Shipping: highest first</option>
+                        <option value="PricePlusShippingLowest">Price + Shipping: lowest first</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Results per page -->
+            <div class="form-group">
+                <label for="Results Per Page" class="col-md-2 control-label">Results Per Page:</label>
+                <div class="col-md-10">
+                    <select class="form-control" name="itemsPerRange">
+                        <option value="5" selected="selected">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                        <option value="20">20</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Hidden Fields -->
+            <div class="form-group">
+                <input type="hidden" name="outputSelector[1]" value="SellerInfo">
+                <input type="hidden" name="outputSelector[2]" value="PictureURLSuperSize">
+                <input type="hidden" name="outputSelector[3]" value="StoreInfo">
+                <input type="hidden" id="pageNumber" name="pageNumber" value="1">
+            </div>
+
+            <!-- button -->
+            <div class="form-group pull-right">
+                <button type="button" id="clear" class="btn btn-default">Clear</button>
+                <button type="submit" id="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+        <!-- END Form -->
+
+    </div>
+    <hr>
+    <!-- Dynamic display -->
+    <div class="container col-md-offset-3" id="Results">
+        <div id="response" class="inline-block"></div>
+        <div id="items-show"></div>
+        <div id="page-Pagination" class="hidden"></div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.validate.js"></script>
+    <script src="js/jquery.tmpl.min.js" type="text/javascript"></script>
+    <script src="js/jquery.bootpag.min.js"></script>
+    <STYLE type="text/css">
+        .glyphicon-ok {
+            color: green;
+        }
+        
+        .glyphicon-remove {
+            color: red;
+        }
+        
+        .custonMargin {
+            padding: 5px;
+        }
+        
+        .strong {
+            font-weight: bold;
+        }
+        
+        .subtitle {
+            margin: 10px 10px 0px 0px;
+        }
+    </STYLE>
+    <!-- BEGIN Template  -->
+    <script id="productDetailTemplate" type="text/html">
+        <div class="col-md-12 inline-block center-block" id="productItem${seq}">
+
+            <div class="media custonMargin">
+                <div class="media-left">
+                    <a href="#" data-toggle="modal" data-target="#imageModal${seq}"><img class="media-object" alt="64x64" src="${basicInfo.galleryURL}" data-holder-rendered="true" style="width: 64px; height: 64px;"></a>
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading"><strong><a href="${basicInfo.viewItemURL}" target="_blank">${basicInfo.title}</a></strong></h4>
+                    <span class="subtitle"><strong>Price: $${basicInfo.convertedCurrentPrice}</strong> ({{if shippingInfo.shippingType == "Free"}}FREE Shipping
+                        {{else}}$${basicInfo.shippingServiceCost} for Shipping{{/if}})</span>
+
+                    <span class="subtitle"><em>Location: ${basicInfo.location}</em></span> {{if basicInfo.topRatedListing == "true"}}
+                    <span class="subtitle"><img src="./itemTopRated.jpg" style="width: 32px; height: 32px;"></span> {{/if}}
+
+                    <span class="subtitle"><a data-toggle="collapse" href="#productCollapse${seq}" aria-expanded="false" aria-controls="productCollapse${seq}">View Details</a></span>
+
+                   <!-- FACEBOOK -->
+                   <span class="subtitle"><img onclick="share('${basicInfo.viewItemURL}', '${basicInfo.title}', '${basicInfo.galleryURL}', '${basicInfo.convertedCurrentPrice}', {{if shippingInfo.shippingType == 'Free'}}'FREE Shipping'
+                        {{else}}'$${basicInfo.shippingServiceCost}'{{/if}}, '${basicInfo.location}')" src="fb.png" style="width: 16px; height: 16px;"></span>
+
+
+                    <div class="collapse custonMargin" id="productCollapse${seq}">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#aaa${seq}" data-toggle="tab">Basic Info</a></li>
+                            <li><a href="#bbb${seq}" data-toggle="tab">Seller Info</a></li>
+                            <li><a href="#ccc${seq}" data-toggle="tab">Shipping Info</a></li>
+                        </ul>
+                        <div class="tab-content" id="tabs${seq}">
+                            <!-- Basic Info -->
+                            <div class="tab-pane fade active in" id="aaa${seq}">
+                                <div class="row">
+                                    <div class="col-md-2 strong">Category name</div>
+                                    <div class="col-md-2"> ${basicInfo.categoryName}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 strong">Condition</div>
+                                    <div class="col-md-2"> ${basicInfo.conditionDisplayName}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2 strong">Buying format</div>
+                                    <div class="col-md-2"> ${basicInfo.listingType}</div>
+                                </div>
+                            </div>
+
+                            <!-- Seller Info -->
+                            <div class="tab-pane fade in" id="bbb${seq}">
+                                <div class="row">
+                                    <div class="col-md-2 strong">User name</div>
+                                    <div class="col-md-2"> ${sellerInfo.sellerUserName}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 strong">Feedback score</div>
+                                    <div class="col-md-2"> ${sellerInfo.feedbackScore}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 strong">Positive feedback</div>
+                                    <div class="col-md-2"> ${sellerInfo.positiveFeedbackPercent}%</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 strong">Feedback rating</div>
+                                    <div class="col-md-2"> ${sellerInfo.feedbackRatingStar}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 strong">Top rated</div>
+                                    {{if sellerInfo.topRatedSeller == "true"}}
+                                    <div class="col-md-2"><span class="glyphicon glyphicon-ok"></span></div>
+                                    {{else}}
+                                    <div class="col-md-2"><span class="glyphicon glyphicon-remove"></span></div>
+                                    {{/if}}
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 strong">Store</div>
+                                    <div class="col-md-2">
+                                        {{if sellerInfo.sellerStoreName != ""}}
+                                        <a href="${sellerInfo.sellerStoreURL}" target="_blank">${sellerInfo.sellerStoreName}</a> {{else}} N/A {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Shipping Info -->
+                            <div class="tab-pane fade in" id="ccc${seq}">
+                                <div class="row">
+                                    <div class="col-md-2 strong">Shipping type</div>
+                                    <div class="col-md-2"> ${shippingInfo.shippingType}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 strong">Handling time</div>
+                                    <div class="col-md-2"> ${shippingInfo.handlingTime} day(s)</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 strong">Shipping locations</div>
+                                    <div class="col-md-2"> ${shippingInfo.shipToLocations}</div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 strong">Expedited shipping</div>
+                                    <div class="col-md-2">
+                                        {{if shippingInfo.expeditedShipping == "true"}}
+                                        <span class="glyphicon glyphicon-ok"></span> {{else}}
+                                        <span class="glyphicon glyphicon-remove"></span> {{/if}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 strong">One day shipping</div>
+                                    <div class="col-md-2">
+                                        {{if shippingInfo.oneDayShippingAvailable == "true"}}
+                                        <span class="glyphicon glyphicon-ok"></span> {{else}}
+                                        <span class="glyphicon glyphicon-remove"></span> {{/if}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-2 strong">Returns accepted</div>
+                                    <div class="col-md-2">
+                                        {{if shippingInfo.returnsAccepted == "true"}}
+                                        <span class="glyphicon glyphicon-ok"></span> {{else}}
+                                        <span class="glyphicon glyphicon-remove"></span> {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="imageModal${seq}" tabindex="-1" role="dialog" aria-labelledby="imageModal${seq}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel${seq}">${basicInfo.title}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <img src="${basicInfo.pictureURLSuperSize}" class="img-responsive">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <!-- END Template  -->
+    <script>
+        $.validator.setDefaults({
+            errorElement: "span",
+            errorClass: "help-block",
+            highlight: function(element) {
+                $(element).closest('.errordisplay').removeClass('has-success').addClass('has-error');
+            },
+            unhighlight: function(element) {
+                $(element).closest('.errordisplay').removeClass('has-error').addClass('has-success');
+            },
+        });
+
+        $('#clear').click(function() {
+            $(':input', '#ebaysearch')
+                .not(':button, :submit, :reset, :hidden')
+                .val('')
+                .removeAttr('checked')
+                .removeAttr('selected');
+            $('#Results').empty();
+        });
+
+        // compare the max price only when min price is not empty
+        function minPriceRequired() {
+            return $('#minprice').val() != "";
+        }
+
+        function jsonQuery() {
+            // $('#items-show').fadeOut(500, function() {
+            //     $(this).empty().show();
+            // });
+            $('#items-show').empty();
+            $.ajax({
+                //url: 'apicall.php',
+                url: "http://www.slyar.com/ebaysearch/index.php",
+                type: 'GET',
+                // this is the parameter list
+                data: $("#ebaysearch").serialize(),
+                success: function(data) {
+                    var json = JSON.parse(data);
+                    console.dir(json);
+                    var ack = json.ack;
+                    if (ack == 'Success') {
+                        var itemCount = parseFloat(json.itemCount);
+                        var resultCount = parseFloat(json.resultCount);
+                        var pagesPerLine;
+                        if (resultCount < itemCount) {
+                            pagesPerLine = 0
+                        } else if (Math.ceil(resultCount / itemCount) >= itemCount) {
+                            pagesPerLine = itemCount
+                        } else {
+                            pagesPerLine = Math.ceil(resultCount / itemCount)
+                        };
+                        var pageNumber = parseFloat(json.pageNumber);
+                        if (itemCount > resultCount) {
+                            itemCount = resultCount
+                        };
+
+                        // Print the start and end
+                        var startItemNumber = itemCount * (pageNumber - 1) + 1;
+                        var endItemNumber = itemCount * pageNumber;
+                        $('#response').html("<strong><h3>" + startItemNumber + "-" + endItemNumber + " items out of " + resultCount + "</strong></h3>");
+
+                        // put item list in the template
+                        for (var i = 0; i < itemCount; i++) {
+                            //Data.push(json.item+i);
+                            var obj = eval("json.item" + i);
+                            if (obj) {
+                                obj.seq = i;
+                                $("#productDetailTemplate").tmpl(obj).appendTo("#items-show");
+                            };
+                        };
+
+                        $('#page-Pagination').bootpag({
+                            total: Math.ceil(resultCount / itemCount),
+                            maxVisible: 5,
+                        })
+                        if (resultCount > itemCount) {
+                            $("#page-Pagination").removeClass("hidden").addClass("show");
+                        } else {
+                            $("#page-Pagination").removeClass("show").addClass("hidden");
+                        };
+                    } else {
+                        $('#response').html("<strong><h3>" + ack + "</strong></h3>");
+                    }
+                },
+                error: function() {}
+            });
+        }
+
+        // handle the decimal number compare
+        $.validator.addMethod('greaterthan', function(value, element, param) {
+            return this.optional(element) || parseFloat(value) >= parseFloat($(param).val());
+        }, 'Maximum price cannot be less than minimum price or below 0');
+
+        // When the document is ready
+        $(document).ready(function() {
+            //validation rules
+            $("#ebaysearch").validate({
+                rules: {
+                    "keyword": {
+                        required: true
+                    },
+                    "minprice": {
+                        number: true,
+                        min: 0
+                    },
+                    "maxprice": {
+                        number: true,
+                        min: 0,
+                        greaterthan: {
+                            param: "#minprice",
+                            depends: minPriceRequired
+                        }
+                    },
+                    "MaxHandlingTime": {
+                        digits: true,
+                        min: 1
+                    },
+                },
+                messages: {
+                    "keyword": {
+                        required: "Please enter a key word"
+                    },
+                    "minprice": {
+                        number: "Price should be a valid number",
+                        min: "Minimum price cannot be below 0"
+                    },
+                    "maxprice": {
+                        number: "Price should be a valid number",
+                        min: "Maximum price cannot be less than minimum price or below 0"
+                    },
+                    "MaxHandlingTime": {
+                        dights: "Max handling time should be a valid digit",
+                        min: "Max handling time should be greater than or equal to 1"
+                    }
+                },
+                submitHandler: function() {
+                    $('#page-Pagination').bootpag({
+                        page: 1,
+                    });
+                    $('#pageNumber').val(1);
+                    jsonQuery();
+                }
+            });
+            $('#page-Pagination').bootpag({
+                total: 5,
+                maxVisible: 5,
+                page: 1,
+            });
+
+            $('#page-Pagination').on('page', function(event, num) {
+                $('#pageNumber').val(num);
+                jsonQuery();
+            });
+        });
+    </script>
+
+    <!-- Facebook SDK -->
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+          FB.init({
+              appId: '344194135770151',
+              xfbml: true,
+              version: 'v2.3'
+          });
+      };
+
+      (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) {
+              return;
+          }
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "//connect.facebook.net/en_US/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+
+
+      function share(url, title, pic, price, shipping, location){
+        //alert(url);
+          FB.ui({
+              method: 'feed',
+              name: decodeURIComponent(title),
+              link: decodeURIComponent(url),
+              picture: decodeURIComponent(pic),
+              caption: 'Search Information from eBay.com',
+              description: 'Price: $' + price + '(' + shipping + '), Location:' + location,
+            }, function(response){
+                if (response && !response.error_code) {
+                    alert('Posted Successfully');
+                }
+                else {
+                    alert('Not Posted');
+                };
+            });
+      }
+
+    </script>
+</body>
+
+</html>
