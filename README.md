@@ -7,5 +7,5 @@ http://do.slyar.com/ebaysearch/
 
 ## PHP JSON return sample:
 
-http://do.com/ebaysearch/index.php?keyword=iphone
+http://do.slyar.com/ebaysearch/index.php?keyword=iphone
 
